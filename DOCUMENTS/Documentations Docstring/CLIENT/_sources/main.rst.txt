@@ -1,0 +1,23 @@
+.. _main:
+
+Main Module
+=============
+
+.. automodule:: main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+   .. rubric:: Description
+
+   Ce fichier se charge de démarrer l'entièreté du script. Il consiste à effectuer les opérations suivantes :
+
+   - Initialisation de l'objet QApplication pour l'UI.
+
+   - Initialisation d'un objet client 'Client_handle'.
+
+   - Liaison de l'UI avec un 'signal' pour gérer les changements de l'UI.
+
+   - Affichage de l'interface utilisateur.
+
+   :raises ConnectionRefusedError: Si le serveur n'est pas joignable.

@@ -1,0 +1,9 @@
+.. _popup:
+
+Popup Module
+=============
+
+.. automodule:: popup
+   :members:
+   :undoc-members:
+   :show-inheritance:
