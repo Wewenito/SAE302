@@ -4,10 +4,10 @@ SAE 302 BUT2 Création d'un serveur de discussion interne.
 Ci-dessous la liste des rendus demandés pour la SAE et où les trouver au sein du repo:
 
 - PROCEDURE D'INSTALLATION :
-        - Installation serveur (pdf) -> SAE302/DOCUMENTS/Procédure installation/INSTALLATION SERVEUR.pdf
-        - Installation client (pdf) -> SAE302/DOCUMENTS/Procédure installation/INSTALLATION CLIENT.pdf
-        - Cumul client + serveur (xls) -> SAE302/DOCUMENTS/Procédure installation/Version feuille calcul.xlsx
-        - Template de Base de données (sql) -> SAE302/DOCUMENTS/Procédure installation/database_template.sql
+        \n- Installation serveur (pdf) -> SAE302/DOCUMENTS/Procédure installation/INSTALLATION SERVEUR.pdf
+        \n- Installation client (pdf) -> SAE302/DOCUMENTS/Procédure installation/INSTALLATION CLIENT.pdf
+        \n- Cumul client + serveur (xls) -> SAE302/DOCUMENTS/Procédure installation/Version feuille calcul.xlsx
+        \n- Template de Base de données (sql) -> SAE302/DOCUMENTS/Procédure installation/database_template.sql
 
 - DOCUMENT DE REPONSE -> SAE302/DOCUMENTS/Autres livrables/Document de réponse.pdf
 
