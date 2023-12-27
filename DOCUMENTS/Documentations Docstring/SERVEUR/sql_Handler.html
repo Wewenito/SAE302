@@ -1,0 +1,1027 @@
+<!doctype html>
+<html class="no-js" lang="fr" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Recherche" href="search.html" /><link rel="next" title="Sys_x Module" href="sys_x.html" /><link rel="prev" title="Server Module" href="server.html" />
+
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.09.10 -->
+        <title>Sql_Handler Module - Documentation SERVEUR 1.0 26-12-2023</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Documentation SERVEUR 1.0 26-12-2023</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">Documentation SERVEUR 1.0 26-12-2023</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Recherche" name="q" aria-label="Recherche">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Module</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Sql_Handler Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sys_x.html">Sys_x Module</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-sql_Handler">
+<span id="sql-handler-module"></span><span id="sql-handler"></span><h1>Sql_Handler Module<a class="headerlink" href="#module-sql_Handler" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.change_room_right">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">change_room_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#change_room_right"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.change_room_right" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de modifier le droit d’accès à un salon d’un utilisateur suite à la décision d’un admin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>demand_id</strong> (<em>int</em>) – ID de la demande traitée.</p></li>
+<li><p><strong>new_status</strong> (<em>str</em>) – Décision de l’admin (OK ou NOK)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est executée sans problème index 0 -&gt; True, Sinon index 0 -&gt; False et index 1 -&gt; Erreur levée.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.check_kick_or_ban">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">check_kick_or_ban</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#check_kick_or_ban"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.check_kick_or_ban" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de vérifier si un utilisateur à actuellement accès à l’application ou bien si celui-ci est banni / kick.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur dont on souhaite connaitre le statut.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>kick_or_ban</strong> (<em>str</em>) – statut actuel de l’utilisateur (KICK, BAN ou Null)</p>
+</dd>
+<dt class="field-odd">Lève<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tableau contenant le statut de l’utilisateur, détail ci-dessous.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Si l’utilisateur est banni, le “return” sera -&gt; [True, “BAN”]</p></li>
+<li><p>Si l’utilisateur est exclu, le “return” sera -&gt; [True, “KICK”, Date à laquelle l’utilisateur peut de nouveau rejoindre l’application].</p></li>
+<li><p>Si l’utilisateur n’est ni exclu ni banni, le “return” sera -&gt; [False, “Var kick_or_ban is Null.”]</p></li>
+<li><p>Si une erreur à eu lieu, le “return” sera -&gt; [False, Message d’erreur]</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.close_connection">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#close_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.close_connection" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction ferme une connection à la base de données.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.create_default_user_rooms">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">create_default_user_rooms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rooms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#create_default_user_rooms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.create_default_user_rooms" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction est utilisée lors de la création d’un utilisateur.
+Celle-ci permet d’assigner au nouvel utilisateur les droits d’accès par défaut aux salons de discussion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>rooms</strong> (<em>Array</em>) – Tableau contenant la liste des salons existants.</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – ID de l’utilisateur auquel on assigne les droits.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Statut de l’éxecution de la fonction (True -&gt; OK, False -&gt; Erreur).</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.create_new_user">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">create_new_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#create_new_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.create_new_user" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de créer un nouvel utilisateur dans la base de données.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user_data</strong> (<em>Array</em>) – Informations de l’utilisateur.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Le paramètre “user_data” est composé comme-ci : 
+[Nom utilisateur, Prénom, Nom, MdP, Mail, Type utilisateur, Banni, Statut de connection]</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Lève<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Statut de l’exécution de la fonction</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.does_user_exists">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">does_user_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#does_user_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.does_user_exists" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de savoir si un utilisateur existe ou non.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Nom de l’utilisateur.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Oui ou non</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.establish_connection">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">establish_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#establish_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.establish_connection" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet la création d’un objet de connection Mysql pour se connecter à la base de données.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Lève<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mysql.connector.InterfaceError</strong> – Si le serveur Mariadb / Mysql n’est plus joignable.</p></li>
+<li><p><strong>mysql.connector.Error</strong> – Si une erreur imprévue survient.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>L’objet de connection Mysql</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Objet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_all_rooms">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_all_rooms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_all_rooms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_all_rooms" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer l’entièreté des salons présents sur la base de données.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue. :raises Exception: Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Un tableau contenant chacun des salons existant sur la base de données.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_banned_IPs">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_banned_IPs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_banned_IPs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_banned_IPs" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer toutes les adresses IP étant associées à des utilisateurs bannis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tableau avec en index 0 : si la fonction s’est bien executée -&gt; True, sinon -&gt; False et en index 1 : La liste des adresses IP si la fonction s’est bien executée, sinon, l’erreur en question.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_complete_private_messages">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_complete_private_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_a_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_b_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_complete_private_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_complete_private_messages" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction s’execute en plusieurs temps, premièrement, on récupère le nom des deux utilisateurs de la conversation privée.
+Ensuite, on récupère tout les messages de la conversation de ces deux utilisateurs.
+Pour finir, on créé un tableau arrangé contenant chaque message du salon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user_a_id</strong> (<em>int</em>) – ID de l’utilisateur A</p></li>
+<li><p><strong>user_b_id</strong> (<em>int</em>) – ID de l’utilisateur B</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>array_user_id_user_name</strong> (<em>Array</em>) – Tableau contenant l’association ID de l’utilisateur / Nom de l’utilisateur.</p></li>
+<li><p><strong>messages_ordered</strong> (<em>Array</em>) – Tableau contenant chaque message trié. Le détail est présent ci-dessous.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-contenu-d-un-item-de-messages-ordered admonition">
+<p class="admonition-title">Contenu d’un item de “messages_ordered”</p>
+<ul class="simple">
+<li><p>[0] = ID du message</p></li>
+<li><p>[1] = Nom de l’utilisateur ayant envoyé le message</p></li>
+<li><p>[2] = Date &amp; Heure de l’envoi du message</p></li>
+<li><p>[3] = Contenu du message</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tableau contenant chacun des messages triés et organisés.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_complete_room_data">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_complete_room_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_complete_room_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_complete_room_data" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction s’execute en plusieurs temps, premièrement, on récupère l’ID et le nom d’utilisateur de tout les utilisateurs présent sur le salon dont on souhaite récupérer les messages.
+Une fois ceci fait, on récupère les messages de ce salon.
+Pour finir, on créé un tableau arrangé contenant chaque message du salon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>room_id</strong> (<em>int</em>) – ID du salon dont on souhaite récupérer les messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>users_on_this_room</strong> (<em>Array</em>) – Liste d’IDs des utilisateurs présents sur ce salon.</p></li>
+<li><p><strong>array_user_id_user_name</strong> (<em>Array</em>) – Liste des associations UID/Nom utilisateur.</p></li>
+<li><p><strong>messages_ordered</strong> (<em>Array</em>) – Tableau contenant chaque message trié. Le détail est présent ci-dessous.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-contenu-d-un-item-de-messages-ordered admonition">
+<p class="admonition-title">Contenu d’un item de “messages_ordered”</p>
+<ul class="simple">
+<li><p>[0] = ID du message</p></li>
+<li><p>[1] = Nom de l’utilisateur ayant envoyé le message</p></li>
+<li><p>[2] = Date &amp; Heure de l’envoi du message</p></li>
+<li><p>[3] = Contenu du message</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tableau contenant chacun des messages triés et organisés.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_pending_rights">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_pending_rights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_pending_rights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_pending_rights" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer chacune des demandes faites par des utilisateurs pour rejoindre un nouveau salon.</p>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Cette fonction n’est utilisée que par les admins.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pending_demands</strong> (<em>Array</em>) – Tableau contenant la liste des demandes utilisateurs</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Cette fonction récupère également pour chaque demande le nom de l’utilisateur l’ayant émise et le salon que celui-ci souhaite rejoindre.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Lève<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un tableau contenant les informations relatives à chaque demande, les nom d’utilisateurs de ces demandes et le nom des salons qu’ils souhaitent rejoindre.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_user_friends">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_user_friends</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_user_friends"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_user_friends" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer les amis d’un utilisateur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur dont on souhaite récupérer les amis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est bien executée, on renvoie un tableau contenant les amis associés à l’utilisateur, sinon, la fonction renvoie False.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_user_info">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_user_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_user_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_user_info" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction récupère l’entièreté des informations d’un utilisateur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Nom de l’utilisateur dont on souhaite récupérer les informations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionnaire comprenant les informations de l’utilisateur.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionnary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_user_info_from_uid">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_user_info_from_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_user_info_from_uid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_user_info_from_uid" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer les informations d’un utilisateur en fonction de son ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur dont on souhaite récupérer les infos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue. Renvoie None.</p>
+</dd>
+</dl>
+<div class="admonition-infos-utilisateur-renvoyees-si-fonction-ok admonition">
+<p class="admonition-title">Infos utilisateur renvoyées (si fonction OK)</p>
+<ul class="simple">
+<li><p>ID</p></li>
+<li><p>Nom d’utilisateur</p></li>
+<li><p>Prénom</p></li>
+<li><p>Nom</p></li>
+<li><p>Mot de Passe</p></li>
+<li><p>Adresse Mail</p></li>
+<li><p>Type d’utilisateur (EMPLOYE ou ADMIN)</p></li>
+<li><p>L’utilisateur est-il banni (bool)</p></li>
+<li><p>Statut de connection de l’utilisateur.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Infos de l’utilisateur</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionnary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.get_user_rooms_rights">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">get_user_rooms_rights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#get_user_rooms_rights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.get_user_rooms_rights" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de récupérer les droits d’accès aux différents salons de discussion d’un utilisateur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user_id</strong> (<em>int</em>) – ID de l’utilisateur dont on souhaite récupérer les droits.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est bien executée -&gt; Liste des droits, sinon -&gt; False</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.query_change_room_rights_user">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">query_change_room_rights_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#query_change_room_rights_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.query_change_room_rights_user" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de soumettre une demande d’un utilisateur pour rejoindre un salon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>room_id</strong> (<em>int</em>) – ID du salon auquel l’utilisateur souhaite accéder.</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur souhaitant accéder au salon.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Si l’utilisateur souhaite accéder au salon “Blabla”, on accepte la demande directement.
+En effet, ce salon ne nécessite pas l’aval d’un admin.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Lève<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un tableau avec en index 0 : True si la fonction s’est bien executée, sinon False et en index 1 l’accès associé au salon.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.remove_kick_for_user">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">remove_kick_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_to_unkick</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#remove_kick_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.remove_kick_for_user" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de retirer le kick d’un utilisateur lorsque la date de retour autorisée est atteinte.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user_to_unkick</strong> (<em>int</em>) – ID de l’utilisateur que l’on souhaite unkick.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un tableau avec en index 0 : True si la fonction s’est bien executée, sinon False et l’erreur en question en index 1.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.save_message_to_room">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">save_message_to_room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#save_message_to_room"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.save_message_to_room" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de sauvegarder au sein de la base de données un message envoyé sur un salon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>room_id</strong> (<em>int</em>) – ID du salon en question.</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur ayant envoyé le message.</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – Contenu du message envoyé</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est bien executée -&gt; Code 200, sinon -&gt; Renvoie de l’erreur.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>int / bool</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">À faire</p>
+<p>Cette fonction sera à modifier pour permettre aux utilisateurs la création de salons de manière récursive.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.save_private_message">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">save_private_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#save_private_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.save_private_message" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de sauvegarder dans la base de données un message envoyé d’un utilisateur à un autre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>message_from</strong> (<em>int</em>) – ID de l’utilisateur ayant envoyé le message.</p></li>
+<li><p><strong>message_to</strong> (<em>int</em>) – ID de l’utilisateur recevant le message</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – Contenu du message envoyé.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est bien executée -&gt; Code 200, Sinon -&gt; Renvoie de l’erreur.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>int / str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.set_friend_request">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">set_friend_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#set_friend_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.set_friend_request" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet d’ajouter une demande d’ami d’un utilisateur à un autre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>demand_from</strong> (<em>int</em>) – Utilisateur envoyant la demande d’ami.</p></li>
+<li><p><strong>demand_to</strong> (<em>int</em>) – Utilisateur demandé en ami</p></li>
+<li><p><strong>user_type</strong> (<em>str</em>) – Type d’utilisateur soumettant la demande (ADMIN / EMPLOYE)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Avertissement</p>
+<p>Si la demande d’ami provient d’un admin, celle ci sera de facto acceptée.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>Array</em>) – Variable permettant de vérifier si une demande est déjà en cour entre les deux utilisateurs.</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un tableau reprenant le statut d’execution de la fonction, détail ci-dessous.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Le retour de fonction peut contenir de multiples valeurs suivant la situation :</p>
+<ul class="simple">
+<li><p>Si l’utilisateur est admin -&gt; On accepte la demande d’ami immédiatement.</p></li>
+<li><p>Si l’utilisateur n’est pas admin -&gt; On ajoute la demande d’ami.</p></li>
+<li><p>Si les utilisateurs sont déjà amis -&gt; Renvoie False + statut</p></li>
+<li><p>Si les utilisateurs ont déjà une demande d’ami en cour -&gt; Renvoie False + statut</p></li>
+<li><p>Si la fonction lève une erreur -&gt; Renvoie False + Erreur</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.set_kick_for_user">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">set_kick_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_to_kick</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#set_kick_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.set_kick_for_user" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction met à jour le statut d’un utilisateur lorsque celui-ci à été exclu temporairement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user_to_kick</strong> (<em>int</em>) – ID de l’utilisateur ayant été exclu.</p></li>
+<li><p><strong>duration</strong> (<em>int</em>) – Durée de l’exclusion en secondes.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Si l’utilisateur est banni, la fonction s’arrête car il n’y a pas d’intérêt à y ajouter un kick étant donné qu’un ban est irréversible.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>first_kick</strong> (<em>bool</em>) – L’utilisateur a t-il déjà une exclusion en cour ? Si oui, on ajoute la durée au temps restant.</p></li>
+<li><p><strong>future_date</strong> (<em>datetime</em>) – Date / heure à laquelle l’utilisateur pourra de nouveau rejoindre l’application.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un tableau avec en index 0 : True si la fonction s’est bien executée, sinon False et l’erreur en question en index 1.</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.set_new_user_password">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">set_new_user_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#set_new_user_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.set_new_user_password" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de modifier le mot de passe d’un utilisateur.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>user</strong> (<em>str</em>) – Nom de l’utilisateur dont on souhaite changer le mot de passe.</p></li>
+<li><p><strong>new_password</strong> (<em>str</em>) – Nouveau mot de passe à associer à cet utilisateur.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Statut de la fonction [La fonction s’est-elle bien déroulée, Erreur (si erreur)]</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.update_and_clean_user_data_after_ban">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">update_and_clean_user_data_after_ban</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#update_and_clean_user_data_after_ban"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.update_and_clean_user_data_after_ban" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction met à jour le statut d’un utilisateur et nettoie les informations liées à celui-ci lorsqu’il a été banni par un admin.
+La variable “is_banned” de l’utilisateur passe en “True”, on supprime les amis de cet utilisateurs et ses droits d’accès aux différents salons.
+Une nouvelle entrée sera également créée au sein de la table “banned_users”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur ayant été banni</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Si la fonction s’est exécutée sans probleme -&gt; True, sinon -&gt; False</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.update_friend_request">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">update_friend_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decision</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#update_friend_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.update_friend_request" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction est utilisée lorsqu’un utilisateur répond à une demande d’ami.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>demand_from</strong> (<em>int</em>) – ID de l’utilisateur ayant envoyé la demande d’ami</p></li>
+<li><p><strong>demand_to</strong> (<em>int</em>) – ID de l’utilisateur que la demande concerne.</p></li>
+<li><p><strong>decision</strong> (<em>str</em>) – Décision concernant la demande d’ami (OK / NOK)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Un tableau avec en index 0 : True si la fonction s’est bien executée, sinon False et en index 1 : le nouveau statut entre les deux utilisateurs.</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.update_ip_on_banned_user">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">update_ip_on_banned_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IP</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#update_ip_on_banned_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.update_ip_on_banned_user" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet d’associer une adresse IP à un utilisateur ayant été banni.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Cette option n’est pas inclue de base à la fonction “update_and_clean_user_data_after_ban” afin de permettre d’associer l’IP de l’utilisateur au cas ou celui-ci aurait été banni lorsqu’il n’était pas connecté.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur banni.</p></li>
+<li><p><strong>IP</strong> (<em>str</em>) – Adresse IP utilisée par l’utilisateur banni.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Si la fonction s’est bien executée -&gt; True, sinon -&gt; False</p>
+</dd>
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sql_Handler.update_user_as_admin">
+<span class="sig-prename descclassname"><span class="pre">sql_Handler.</span></span><span class="sig-name descname"><span class="pre">update_user_as_admin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mydb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sql_Handler.html#update_user_as_admin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sql_Handler.update_user_as_admin" title="Link to this definition">#</a></dt>
+<dd><p>Cette fonction permet de passer un utilisateur du statut « EMPLOYE » au statut « ADMIN ».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mydb</strong> (<em>Object</em>) – Objet de connection Mysql</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Nom de l’utilisateur à passer en admin.</p></li>
+<li><p><strong>UID</strong> (<em>int</em>) – ID de l’utilisateur à passer en admin.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Lève<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – Si la fonction rencontre une erreur imprévue.</p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Statut de la fonction [La fonction s’est-elle bien déroulée, Erreur (si erreur)]</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="sys_x.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Sys_x Module</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="server.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Server Module</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Owen PICHOT
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Sql_Handler Module</a><ul>
+<li><a class="reference internal" href="#sql_Handler.change_room_right"><code class="docutils literal notranslate"><span class="pre">change_room_right()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.check_kick_or_ban"><code class="docutils literal notranslate"><span class="pre">check_kick_or_ban()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.close_connection"><code class="docutils literal notranslate"><span class="pre">close_connection()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.create_default_user_rooms"><code class="docutils literal notranslate"><span class="pre">create_default_user_rooms()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.create_new_user"><code class="docutils literal notranslate"><span class="pre">create_new_user()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.does_user_exists"><code class="docutils literal notranslate"><span class="pre">does_user_exists()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.establish_connection"><code class="docutils literal notranslate"><span class="pre">establish_connection()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_all_rooms"><code class="docutils literal notranslate"><span class="pre">get_all_rooms()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_banned_IPs"><code class="docutils literal notranslate"><span class="pre">get_banned_IPs()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_complete_private_messages"><code class="docutils literal notranslate"><span class="pre">get_complete_private_messages()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_complete_room_data"><code class="docutils literal notranslate"><span class="pre">get_complete_room_data()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_pending_rights"><code class="docutils literal notranslate"><span class="pre">get_pending_rights()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_user_friends"><code class="docutils literal notranslate"><span class="pre">get_user_friends()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_user_info"><code class="docutils literal notranslate"><span class="pre">get_user_info()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_user_info_from_uid"><code class="docutils literal notranslate"><span class="pre">get_user_info_from_uid()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.get_user_rooms_rights"><code class="docutils literal notranslate"><span class="pre">get_user_rooms_rights()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.query_change_room_rights_user"><code class="docutils literal notranslate"><span class="pre">query_change_room_rights_user()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.remove_kick_for_user"><code class="docutils literal notranslate"><span class="pre">remove_kick_for_user()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.save_message_to_room"><code class="docutils literal notranslate"><span class="pre">save_message_to_room()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.save_private_message"><code class="docutils literal notranslate"><span class="pre">save_private_message()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.set_friend_request"><code class="docutils literal notranslate"><span class="pre">set_friend_request()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.set_kick_for_user"><code class="docutils literal notranslate"><span class="pre">set_kick_for_user()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.set_new_user_password"><code class="docutils literal notranslate"><span class="pre">set_new_user_password()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.update_and_clean_user_data_after_ban"><code class="docutils literal notranslate"><span class="pre">update_and_clean_user_data_after_ban()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.update_friend_request"><code class="docutils literal notranslate"><span class="pre">update_friend_request()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.update_ip_on_banned_user"><code class="docutils literal notranslate"><span class="pre">update_ip_on_banned_user()</span></code></a></li>
+<li><a class="reference internal" href="#sql_Handler.update_user_as_admin"><code class="docutils literal notranslate"><span class="pre">update_user_as_admin()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=fc40adec"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/translations.js?v=d99ca74e"></script>
+    </body>
+</html>

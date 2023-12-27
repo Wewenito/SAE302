@@ -1,0 +1,1484 @@
+<!doctype html>
+<html class="no-js" lang="fr" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Recherche" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.2.5 and Furo 2023.09.10 -->
+        <title>sql_Handler - Documentation SERVEUR 1.0 26-12-2023</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Documentation SERVEUR 1.0 26-12-2023</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Documentation SERVEUR 1.0 26-12-2023</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Recherche" name="q" aria-label="Recherche">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../server.html">Server Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sql_Handler.html">Sql_Handler Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sys_x.html">Sys_x Module</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Code source de sql_Handler</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">mysql.connector</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+
+<div class="viewcode-block" id="establish_connection">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.establish_connection">[docs]</a>
+<span class="k">def</span> <span class="nf">establish_connection</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet la création d&#39;un objet de connection Mysql pour se connecter à la base de données.</span>
+
+<span class="sd">    :raises mysql.connector.InterfaceError: Si le serveur Mariadb / Mysql n&#39;est plus joignable.</span>
+<span class="sd">    :raises mysql.connector.Error: Si une erreur imprévue survient.</span>
+
+<span class="sd">    :return: L&#39;objet de connection Mysql</span>
+<span class="sd">    :rtype: Objet    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mydb</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+                <span class="n">user</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+                <span class="n">password</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+                <span class="n">database</span><span class="o">=</span><span class="s2">&quot;SAE302&quot;</span>
+            <span class="p">)</span>
+            <span class="c1">#print(&quot;Connection to the database established&quot;)</span>
+            <span class="k">return</span> <span class="n">mydb</span>
+        <span class="k">except</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">InterfaceError</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MySQL server has gone away. Reconnecting in 3 seconds..&quot;</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="close_connection">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.close_connection">[docs]</a>
+<span class="k">def</span> <span class="nf">close_connection</span><span class="p">(</span><span class="n">mydb</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction ferme une connection à la base de données.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mydb</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+        <span class="c1">#print(&quot;Connection to the database closed&quot;)</span>
+
+<div class="viewcode-block" id="does_user_exists">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.does_user_exists">[docs]</a>
+<span class="k">def</span> <span class="nf">does_user_exists</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de savoir si un utilisateur existe ou non.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param username: Nom de l&#39;utilisateur.</span>
+<span class="sd">    :type username: str</span>
+
+<span class="sd">    :return: Oui ou non</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM auth_user WHERE Username = &#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="get_user_info">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_user_info">[docs]</a>
+<span class="k">def</span> <span class="nf">get_user_info</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction récupère l&#39;entièreté des informations d&#39;un utilisateur.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param username: Nom de l&#39;utilisateur dont on souhaite récupérer les informations.</span>
+<span class="sd">    :type username: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Dictionnaire comprenant les informations de l&#39;utilisateur.</span>
+<span class="sd">    :rtype: dictionnary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM auth_user WHERE Username = &#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;;&quot;</span>
+
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="n">result_user</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;Username&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;First_name&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s2">&quot;Last_name&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s2">&quot;Password&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s2">&quot;Mail&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="s2">&quot;User_type&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+            <span class="s2">&quot;is_banned&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="s2">&quot;is_connected&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result_user</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="update_user_as_admin">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.update_user_as_admin">[docs]</a>
+<span class="k">def</span> <span class="nf">update_user_as_admin</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de passer un utilisateur du statut &quot;EMPLOYE&quot; au statut &quot;ADMIN&quot;.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param username: Nom de l&#39;utilisateur à passer en admin.</span>
+<span class="sd">    :type username: str</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur à passer en admin.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Statut de la fonction [La fonction s&#39;est-elle bien déroulée, Erreur (si erreur)]</span>
+<span class="sd">    :rtype: array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET user_type = &#39;ADMIN&#39; WHERE Username = &#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_rooms SET Access = &#39;YES&#39; WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">UID</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND Salon_id = </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+    
+<div class="viewcode-block" id="set_new_user_password">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.set_new_user_password">[docs]</a>
+<span class="k">def</span> <span class="nf">set_new_user_password</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">new_password</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de modifier le mot de passe d&#39;un utilisateur.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user: Nom de l&#39;utilisateur dont on souhaite changer le mot de passe.</span>
+<span class="sd">    :type user: str</span>
+
+<span class="sd">    :param new_password: Nouveau mot de passe à associer à cet utilisateur.</span>
+<span class="sd">    :type new_password: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Statut de la fonction [La fonction s&#39;est-elle bien déroulée, Erreur (si erreur)]</span>
+<span class="sd">    :rtype: array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET Password = &#39;</span><span class="si">{</span><span class="n">new_password</span><span class="si">}</span><span class="s2">&#39; WHERE Username = &#39;</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s2">&#39;;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+        
+<div class="viewcode-block" id="get_user_info_from_uid">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_user_info_from_uid">[docs]</a>
+<span class="k">def</span> <span class="nf">get_user_info_from_uid</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer les informations d&#39;un utilisateur en fonction de son ID.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur dont on souhaite récupérer les infos.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue. Renvoie None.</span>
+
+<span class="sd">    .. admonition:: Infos utilisateur renvoyées (si fonction OK)</span>
+
+<span class="sd">        - ID</span>
+<span class="sd">        - Nom d&#39;utilisateur</span>
+<span class="sd">        - Prénom</span>
+<span class="sd">        - Nom</span>
+<span class="sd">        - Mot de Passe</span>
+<span class="sd">        - Adresse Mail</span>
+<span class="sd">        - Type d&#39;utilisateur (EMPLOYE ou ADMIN)</span>
+<span class="sd">        - L&#39;utilisateur est-il banni (bool)</span>
+<span class="sd">        - Statut de connection de l&#39;utilisateur.</span>
+
+<span class="sd">    :return: Infos de l&#39;utilisateur</span>
+<span class="sd">    :rtype: dictionnary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM auth_user WHERE id = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="n">result_user</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;Username&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;First_name&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="s2">&quot;Last_name&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+            <span class="s2">&quot;Password&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s2">&quot;Mail&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+            <span class="s2">&quot;User_type&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+            <span class="s2">&quot;is_banned&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+            <span class="s2">&quot;is_connected&quot;</span><span class="p">:</span><span class="n">user</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">result_user</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="create_new_user">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.create_new_user">[docs]</a>
+<span class="k">def</span> <span class="nf">create_new_user</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de créer un nouvel utilisateur dans la base de données.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user_data: Informations de l&#39;utilisateur.</span>
+<span class="sd">    :type user_data: Array</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Le paramètre &#39;user_data&#39; est composé comme-ci : </span>
+<span class="sd">        [Nom utilisateur, Prénom, Nom, MdP, Mail, Type utilisateur, Banni, Statut de connection]</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Statut de l&#39;exécution de la fonction</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO auth_user </span><span class="se">\</span>
+<span class="s2">            (Username, First_name, Last_name, Password, Mail, user_type, is_banned, is_connected)</span><span class="se">\</span>
+<span class="s2">            VALUES (&#39;</span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">user_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;, &#39;EMPLOYE&#39;, 0, &#39;UNDEFINED&#39;);&quot;</span>
+    
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py create_new_user SUCCESFUL]&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py create_new_user ERROR]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    
+<div class="viewcode-block" id="get_user_friends">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_user_friends">[docs]</a>
+<span class="k">def</span> <span class="nf">get_user_friends</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer les amis d&#39;un utilisateur.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+<span class="sd">    </span>
+<span class="sd">    :param UID: ID de l&#39;utilisateur dont on souhaite récupérer les amis.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est bien executée, on renvoie un tableau contenant les amis associés à l&#39;utilisateur, sinon, la fonction renvoie False.</span>
+<span class="sd">    :rtype: array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM user_friends WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">user_friends</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">user_friends</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py get_user_rights_and_friends ERROR]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="get_all_rooms">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_all_rooms">[docs]</a>
+<span class="k">def</span> <span class="nf">get_all_rooms</span><span class="p">(</span><span class="n">mydb</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer l&#39;entièreté des salons présents sur la base de données.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue. :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Un tableau contenant chacun des salons existant sur la base de données.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Salons;&quot;</span>
+        
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        
+        <span class="n">Salons</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">Salons</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py get_all_rooms ERROR]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="create_default_user_rooms">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.create_default_user_rooms">[docs]</a>
+<span class="k">def</span> <span class="nf">create_default_user_rooms</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">rooms</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction est utilisée lors de la création d&#39;un utilisateur.</span>
+<span class="sd">    Celle-ci permet d&#39;assigner au nouvel utilisateur les droits d&#39;accès par défaut aux salons de discussion.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param rooms: Tableau contenant la liste des salons existants.</span>
+<span class="sd">    :type rooms: Array</span>
+
+<span class="sd">    :param user_id: ID de l&#39;utilisateur auquel on assigne les droits.</span>
+<span class="sd">    :type user_id: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Statut de l&#39;éxecution de la fonction (True -&gt; OK, False -&gt; Erreur).</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Room -&gt; </span><span class="si">{</span><span class="n">room</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">room</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Général&quot;</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_rooms (UID, Salon_id, Access) VALUES (</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">room</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, &#39;YES&#39;);&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">room</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Blabla&quot;</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_rooms (UID, Salon_id, Access) VALUES (</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">room</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, &#39;YES_IF_ASK&#39;);&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_rooms (UID, Salon_id, Access) VALUES (</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">room</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, &#39;NO&#39;);&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py create_default_user_rooms ERROR]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    
+<div class="viewcode-block" id="get_user_rooms_rights">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_user_rooms_rights">[docs]</a>
+<span class="k">def</span> <span class="nf">get_user_rooms_rights</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer les droits d&#39;accès aux différents salons de discussion d&#39;un utilisateur.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user_id: ID de l&#39;utilisateur dont on souhaite récupérer les droits.</span>
+<span class="sd">    :type user_id: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est bien executée -&gt; Liste des droits, sinon -&gt; False</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM user_rooms WHERE UID = </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;NO_RIGHTS&quot;</span>
+
+        <span class="k">return</span> <span class="n">result</span>
+            
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[sql_handler.py get_user_rooms_rights ERROR]&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="save_message_to_room">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.save_message_to_room">[docs]</a>
+<span class="k">def</span> <span class="nf">save_message_to_room</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">room_id</span><span class="p">,</span> <span class="n">UID</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de sauvegarder au sein de la base de données un message envoyé sur un salon.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param room_id: ID du salon en question.</span>
+<span class="sd">    :type room_id: int</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur ayant envoyé le message.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :param message: Contenu du message envoyé</span>
+<span class="sd">    :type message: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est bien executée -&gt; Code 200, sinon -&gt; Renvoie de l&#39;erreur.</span>
+<span class="sd">    :rtype: int / bool</span>
+
+<span class="sd">    .. todo:: </span>
+
+<span class="sd">        Cette fonction sera à modifier pour permettre aux utilisateurs la création de salons de manière récursive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving message to room </span><span class="si">{</span><span class="n">room_id</span><span class="si">}</span><span class="s2">, with UID </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2"> and message : </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">match</span> <span class="nb">int</span><span class="p">(</span><span class="n">room_id</span><span class="p">):</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="s2">&quot;MESSAGES_general&quot;</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="s2">&quot;MESSAGES_blabla&quot;</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="s2">&quot;MESSAGES_comptabilite&quot;</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="s2">&quot;MESSAGES_informatique&quot;</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">room_to_save_to</span> <span class="o">=</span> <span class="s2">&quot;MESSAGES_marketing&quot;</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;ERROR|Room_does_not_exist&quot;</span>
+        
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;saving message to the table </span><span class="si">{</span><span class="n">room_to_save_to</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>    
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO </span><span class="si">{</span><span class="n">room_to_save_to</span><span class="si">}</span><span class="s2"> (from_user, timestamp, message_content) VALUES (%s, NOW(), %s);&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">UID</span><span class="p">),</span> <span class="n">message</span><span class="p">)</span>
+
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">200</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">E</span></div>
+
+
+<div class="viewcode-block" id="save_private_message">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.save_private_message">[docs]</a>
+<span class="k">def</span> <span class="nf">save_private_message</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">message_from</span><span class="p">,</span> <span class="n">message_to</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de sauvegarder dans la base de données un message envoyé d&#39;un utilisateur à un autre.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param message_from: ID de l&#39;utilisateur ayant envoyé le message.</span>
+<span class="sd">    :type message_from: int</span>
+
+<span class="sd">    :param message_to: ID de l&#39;utilisateur recevant le message</span>
+<span class="sd">    :type message_to: int</span>
+
+<span class="sd">    :param message: Contenu du message envoyé.</span>
+<span class="sd">    :type message: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est bien executée -&gt; Code 200, Sinon -&gt; Renvoie de l&#39;erreur.</span>
+<span class="sd">    :rtype: int / str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving private message, from </span><span class="si">{</span><span class="n">message_from</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">message_to</span><span class="si">}</span><span class="s2"> with the message : </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO MESSAGES_P2P (message_from, message_to, timestamp, message_content) VALUES (%s, %s, NOW(), %s);&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">message_from</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">message_to</span><span class="p">),</span> <span class="n">message</span><span class="p">)</span>
+
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">200</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">E</span></div>
+
+
+<div class="viewcode-block" id="get_complete_room_data">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_complete_room_data">[docs]</a>
+<span class="k">def</span> <span class="nf">get_complete_room_data</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">room_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction s&#39;execute en plusieurs temps, premièrement, on récupère l&#39;ID et le nom d&#39;utilisateur de tout les utilisateurs présent sur le salon dont on souhaite récupérer les messages.</span>
+<span class="sd">    Une fois ceci fait, on récupère les messages de ce salon.</span>
+<span class="sd">    Pour finir, on créé un tableau arrangé contenant chaque message du salon.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param room_id: ID du salon dont on souhaite récupérer les messages</span>
+<span class="sd">    :type room_id: int</span>
+
+<span class="sd">    :ivar users_on_this_room: Liste d&#39;IDs des utilisateurs présents sur ce salon.</span>
+<span class="sd">    :vartype users_on_this_room: Array</span>
+
+<span class="sd">    :ivar array_user_id_user_name: Liste des associations UID/Nom utilisateur.</span>
+<span class="sd">    :vartype array_user_id_user_name: Array</span>
+
+<span class="sd">    :ivar messages_ordered: Tableau contenant chaque message trié. Le détail est présent ci-dessous.</span>
+<span class="sd">    :vartype messages_ordered: Array</span>
+
+<span class="sd">    .. admonition:: Contenu d&#39;un item de &#39;messages_ordered&#39;</span>
+
+<span class="sd">        - [0] = ID du message</span>
+<span class="sd">        - [1] = Nom de l&#39;utilisateur ayant envoyé le message</span>
+<span class="sd">        - [2] = Date &amp; Heure de l&#39;envoi du message</span>
+<span class="sd">        - [3] = Contenu du message</span>
+
+<span class="sd">    :return: Tableau contenant chacun des messages triés et organisés.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="c1">#first, get the users allowed on this room</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT UID FROM user_rooms WHERE Salon_id = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">room_id</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">users_on_this_room</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="c1">#print(f&quot;Users associated to this room : {users_on_this_room}&quot;)</span>
+
+    <span class="n">array_user_id_user_name</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#contains -&gt; [User_id, user_name]</span>
+
+    <span class="k">for</span> <span class="n">users</span> <span class="ow">in</span> <span class="n">users_on_this_room</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT Username FROM auth_user WHERE id = </span><span class="si">{</span><span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">user_name</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        <span class="c1">#print(f&quot;User name associated with UID {users[0]} -&gt; {user_name[0]}&quot;)</span>
+        <span class="n">array_user_id_user_name</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">user_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+    <span class="c1">#print(f&quot;here is the complete array for the users using this room : {array_user_id_user_name}&quot;)</span>
+
+    <span class="c1">#Now we get all the messages and link each one with the time it was sent and the username :</span>
+
+    <span class="k">match</span> <span class="nb">int</span><span class="p">(</span><span class="n">room_id</span><span class="p">):</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_general;&quot;</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_blabla;&quot;</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_comptabilite;&quot;</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_informatique;&quot;</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_marketing;&quot;</span>
+        <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    
+    <span class="n">messages</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+    <span class="c1">#Now we order those packets a bit better for the display to the client later on :</span>
+    <span class="n">messages_ordered</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># contains [Message_id, User_name, time, message_content]</span>
+
+    <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span> <span class="c1">#each message has the following content : [message_id, UID, Time it was sent, Message_content]</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">users</span> <span class="ow">in</span> <span class="n">array_user_id_user_name</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">messages_ordered</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">user</span><span class="p">,</span> <span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+
+    <span class="c1">#print(f&quot;Messages ordered = {messages_ordered}&quot;)</span>
+    <span class="k">return</span> <span class="n">messages_ordered</span></div>
+
+
+<div class="viewcode-block" id="get_complete_private_messages">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_complete_private_messages">[docs]</a>
+<span class="k">def</span> <span class="nf">get_complete_private_messages</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user_a_id</span><span class="p">,</span> <span class="n">user_b_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction s&#39;execute en plusieurs temps, premièrement, on récupère le nom des deux utilisateurs de la conversation privée.</span>
+<span class="sd">    Ensuite, on récupère tout les messages de la conversation de ces deux utilisateurs.</span>
+<span class="sd">    Pour finir, on créé un tableau arrangé contenant chaque message du salon.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user_a_id: ID de l&#39;utilisateur A</span>
+<span class="sd">    :type user_a_id: int</span>
+
+<span class="sd">    :param user_b_id: ID de l&#39;utilisateur B</span>
+<span class="sd">    :type user_b_id: int</span>
+
+<span class="sd">    :ivar array_user_id_user_name: Tableau contenant l&#39;association ID de l&#39;utilisateur / Nom de l&#39;utilisateur.</span>
+<span class="sd">    :vartype array_user_id_user_name: Array</span>
+
+<span class="sd">    :ivar messages_ordered: Tableau contenant chaque message trié. Le détail est présent ci-dessous.</span>
+<span class="sd">    :vartype messages_ordered: Array</span>
+
+<span class="sd">    .. admonition:: Contenu d&#39;un item de &#39;messages_ordered&#39;</span>
+
+<span class="sd">        - [0] = ID du message</span>
+<span class="sd">        - [1] = Nom de l&#39;utilisateur ayant envoyé le message</span>
+<span class="sd">        - [2] = Date &amp; Heure de l&#39;envoi du message</span>
+<span class="sd">        - [3] = Contenu du message</span>
+
+<span class="sd">    :return: Tableau contenant chacun des messages triés et organisés.</span>
+<span class="sd">    :rtype: Array      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">array_user_id_user_name</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#contains -&gt; [User_id, user_name]</span>
+
+    <span class="c1">#first we get the names of both users:</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT Username FROM auth_user WHERE id = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_a_id</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="n">array_user_id_user_name</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">user_a_id</span><span class="p">),</span> <span class="n">username</span><span class="p">])</span>
+
+    <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT Username FROM auth_user WHERE id = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_b_id</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="n">array_user_id_user_name</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">user_b_id</span><span class="p">),</span> <span class="n">username</span><span class="p">])</span>
+
+    <span class="c1">#Now we get all the messages involving the two of them:</span>
+    <span class="n">query3</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM MESSAGES_P2P WHERE (message_from = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_a_id</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND message_to = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_b_id</span><span class="p">)</span><span class="si">}</span><span class="s2">) OR (message_from = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_b_id</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND message_to = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">user_a_id</span><span class="p">)</span><span class="si">}</span><span class="s2">);&quot;</span>
+    <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    
+    <span class="n">messages_ordered</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">users</span> <span class="ow">in</span> <span class="n">array_user_id_user_name</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">messages_ordered</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">user</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">message</span><span class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">messages_ordered</span></div>
+
+    
+<div class="viewcode-block" id="query_change_room_rights_user">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.query_change_room_rights_user">[docs]</a>
+<span class="k">def</span> <span class="nf">query_change_room_rights_user</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">room_id</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de soumettre une demande d&#39;un utilisateur pour rejoindre un salon.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param room_id: ID du salon auquel l&#39;utilisateur souhaite accéder.</span>
+<span class="sd">    :type room_id: int</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur souhaitant accéder au salon.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Si l&#39;utilisateur souhaite accéder au salon &#39;Blabla&#39;, on accepte la demande directement.</span>
+<span class="sd">        En effet, ce salon ne nécessite pas l&#39;aval d&#39;un admin.</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Un tableau avec en index 0 : True si la fonction s&#39;est bien executée, sinon False et en index 1 l&#39;accès associé au salon.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">room_id</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This room does not need admin approval, authorizing it now&quot;</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_rooms SET Access = &#39;YES&#39; WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2"> AND Salon_id = </span><span class="si">{</span><span class="n">room_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;ACCESS_GRANTED&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This room does need admin approval, therefore, setting the param to &#39;PENDING&#39;&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_rooms SET Access = &#39;PENDING&#39; WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2"> AND Salon_id = </span><span class="si">{</span><span class="n">room_id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;ACCESS_ASKED&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="update_friend_request">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.update_friend_request">[docs]</a>
+<span class="k">def</span> <span class="nf">update_friend_request</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">demand_from</span><span class="p">,</span> <span class="n">demand_to</span><span class="p">,</span> <span class="n">decision</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction est utilisée lorsqu&#39;un utilisateur répond à une demande d&#39;ami.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param demand_from: ID de l&#39;utilisateur ayant envoyé la demande d&#39;ami</span>
+<span class="sd">    :type demand_from: int</span>
+
+<span class="sd">    :param demand_to: ID de l&#39;utilisateur que la demande concerne.</span>
+<span class="sd">    :type demand_to: int</span>
+
+<span class="sd">    :param decision: Décision concernant la demande d&#39;ami (OK / NOK)</span>
+<span class="sd">    :type decision: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Un tableau avec en index 0 : True si la fonction s&#39;est bien executée, sinon False et en index 1 : le nouveau statut entre les deux utilisateurs.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;updating friend request from </span><span class="si">{</span><span class="n">demand_from</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">demand_to</span><span class="si">}</span><span class="s2"> with decision : </span><span class="si">{</span><span class="n">decision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_friends SET status = &#39;OK&#39; WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND friend_UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_friends SET status = &#39;OK&#39; WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND friend_UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;UPATE_OK_USERS_ARE_FRIENDS&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM user_friends WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND friend_UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM user_friends WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND friend_UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;UPATE_OK_USERS_ARENT_FRIENDS&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_pending_rights">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_pending_rights">[docs]</a>
+<span class="k">def</span> <span class="nf">get_pending_rights</span><span class="p">(</span><span class="n">mydb</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer chacune des demandes faites par des utilisateurs pour rejoindre un nouveau salon.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Cette fonction n&#39;est utilisée que par les admins.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :ivar pending_demands: Tableau contenant la liste des demandes utilisateurs</span>
+<span class="sd">    :vartype pending_demands: Array</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Cette fonction récupère également pour chaque demande le nom de l&#39;utilisateur l&#39;ayant émise et le salon que celui-ci souhaite rejoindre.</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Un tableau contenant les informations relatives à chaque demande, les nom d&#39;utilisateurs de ces demandes et le nom des salons qu&#39;ils souhaitent rejoindre.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM user_rooms WHERE Access = &#39;PENDING&#39;;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">pending_demands</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="n">users_gathered</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rooms_gathered</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">demand</span> <span class="ow">in</span> <span class="n">pending_demands</span><span class="p">:</span>
+            <span class="n">user_already_fetched</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">room_already_fetched</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">uid</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">rid</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">users_gathered</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">uid</span><span class="p">:</span>
+                    <span class="n">user_already_fetched</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">rooms_gathered</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">rid</span><span class="p">:</span>
+                    <span class="n">room_already_fetched</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">user_already_fetched</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">query_users</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT Username FROM auth_user WHERE id = </span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_users</span><span class="p">)</span>
+                <span class="n">users_gathered</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">uid</span><span class="p">,</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()])</span>
+
+            
+            <span class="k">if</span> <span class="n">room_already_fetched</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">query_rooms</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT nom FROM Salons WHERE id = </span><span class="si">{</span><span class="n">rid</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_rooms</span><span class="p">)</span>
+                <span class="n">rooms_gathered</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">rid</span><span class="p">,</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()])</span>
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">pending_demands</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="n">pending_demands</span><span class="p">,</span> <span class="n">users_gathered</span><span class="p">,</span> <span class="n">rooms_gathered</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="change_room_right">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.change_room_right">[docs]</a>
+<span class="k">def</span> <span class="nf">change_room_right</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">demand_id</span><span class="p">,</span> <span class="n">new_status</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de modifier le droit d&#39;accès à un salon d&#39;un utilisateur suite à la décision d&#39;un admin.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param demand_id: ID de la demande traitée.</span>
+<span class="sd">    :type demand_id: int</span>
+
+<span class="sd">    :param new_status: Décision de l&#39;admin (OK ou NOK)</span>
+<span class="sd">    :type new_status: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est executée sans problème index 0 -&gt; True, Sinon index 0 -&gt; False et index 1 -&gt; Erreur levée.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">new_status</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_rooms SET Access = &#39;YES&#39; WHERE id = </span><span class="si">{</span><span class="n">demand_id</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">new_status</span> <span class="o">==</span> <span class="s2">&quot;NOK&quot;</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE user_rooms SET Access = &#39;NO&#39; WHERE id = </span><span class="si">{</span><span class="n">demand_id</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error : new status is not logical&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Error : new status is not logical&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error : </span><span class="si">{</span><span class="n">E</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="update_and_clean_user_data_after_ban">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.update_and_clean_user_data_after_ban">[docs]</a>
+<span class="k">def</span> <span class="nf">update_and_clean_user_data_after_ban</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction met à jour le statut d&#39;un utilisateur et nettoie les informations liées à celui-ci lorsqu&#39;il a été banni par un admin.</span>
+<span class="sd">    La variable &#39;is_banned&#39; de l&#39;utilisateur passe en &#39;True&#39;, on supprime les amis de cet utilisateurs et ses droits d&#39;accès aux différents salons.</span>
+<span class="sd">    Une nouvelle entrée sera également créée au sein de la table &#39;banned_users&#39;.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur ayant été banni</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est exécutée sans probleme -&gt; True, sinon -&gt; False</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#Update user is_banned value</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET is_banned = 1 WHERE id = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="c1">#Add the data for his ban in banned_users</span>
+        <span class="c1">#we can&#39;t add the ip right now unless user is connected, checking after this</span>
+        <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO banned_users (UID, ban_or_kick) VALUES (</span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">, &#39;BAN&#39;);&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="c1">#delete_the_friends</span>
+        <span class="n">query3</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM user_friends WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="c1">#delete_the_room_rights</span>
+        <span class="n">query4</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM user_rooms WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query4</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="update_ip_on_banned_user">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.update_ip_on_banned_user">[docs]</a>
+<span class="k">def</span> <span class="nf">update_ip_on_banned_user</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">UID</span><span class="p">,</span> <span class="n">IP</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet d&#39;associer une adresse IP à un utilisateur ayant été banni.</span>
+
+<span class="sd">    .. note:: </span>
+
+<span class="sd">        Cette option n&#39;est pas inclue de base à la fonction &#39;update_and_clean_user_data_after_ban&#39; afin de permettre d&#39;associer l&#39;IP de l&#39;utilisateur au cas ou celui-ci aurait été banni lorsqu&#39;il n&#39;était pas connecté.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur banni.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :param IP: Adresse IP utilisée par l&#39;utilisateur banni.</span>
+<span class="sd">    :type IP: str</span>
+
+<span class="sd">    :return: Si la fonction s&#39;est bien executée -&gt; True, sinon -&gt; False</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE banned_users SET ip_adress = &#39;</span><span class="si">{</span><span class="n">IP</span><span class="si">}</span><span class="s2">&#39; WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    
+<div class="viewcode-block" id="get_banned_IPs">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.get_banned_IPs">[docs]</a>
+<span class="k">def</span> <span class="nf">get_banned_IPs</span><span class="p">(</span><span class="n">mydb</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de récupérer toutes les adresses IP étant associées à des utilisateurs bannis.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :return: Tableau avec en index 0 : si la fonction s&#39;est bien executée -&gt; True, sinon -&gt; False et en index 1 : La liste des adresses IP si la fonction s&#39;est bien executée, sinon, l&#39;erreur en question.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT ip_adress FROM banned_users;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="n">result</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="set_kick_for_user">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.set_kick_for_user">[docs]</a>
+<span class="k">def</span> <span class="nf">set_kick_for_user</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user_to_kick</span><span class="p">,</span> <span class="n">duration</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction met à jour le statut d&#39;un utilisateur lorsque celui-ci à été exclu temporairement.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user_to_kick: ID de l&#39;utilisateur ayant été exclu.</span>
+<span class="sd">    :type user_to_kick: int</span>
+
+<span class="sd">    :param duration: Durée de l&#39;exclusion en secondes.</span>
+<span class="sd">    :type duration: int</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Si l&#39;utilisateur est banni, la fonction s&#39;arrête car il n&#39;y a pas d&#39;intérêt à y ajouter un kick étant donné qu&#39;un ban est irréversible.</span>
+
+<span class="sd">    :ivar first_kick: L&#39;utilisateur a t-il déjà une exclusion en cour ? Si oui, on ajoute la durée au temps restant.</span>
+<span class="sd">    :vartype first_kick: bool</span>
+
+<span class="sd">    :ivar future_date: Date / heure à laquelle l&#39;utilisateur pourra de nouveau rejoindre l&#39;application.</span>
+<span class="sd">    :vartype future_date: datetime</span>
+
+<span class="sd">    :return: Un tableau avec en index 0 : True si la fonction s&#39;est bien executée, sinon False et l&#39;erreur en question en index 1.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">first_kick</span> <span class="o">=</span> <span class="kc">True</span><span class="c1">#has user been kicked before</span>
+
+    <span class="c1">#first we check if a kick on the user isn&#39;t already active</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT is_banned FROM auth_user WHERE id = </span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">first_kick</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT ban_or_kick FROM banned_users WHERE UID = </span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;BAN&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;USER_IS_BANNED&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">first_kick</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET is_banned = 1 WHERE id = </span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    
+            <span class="n">future_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Future date : </span><span class="si">{</span><span class="n">future_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Future date stringyfied : </span><span class="si">{</span><span class="n">future_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO banned_users (UID, ban_or_kick, duration) VALUES (</span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">, &#39;KICK&#39;, &#39;</span><span class="si">{</span><span class="n">future_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;);&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#since user has already a kick, we&#39;ll add up the new value to it.</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET is_banned = 1 WHERE id = </span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT duration FROM banned_users WHERE UID = </span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">;&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">duration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+            <span class="n">future_date</span> <span class="o">=</span> <span class="n">duration</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">duration</span><span class="p">))</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Old date : </span><span class="si">{</span><span class="n">duration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Future date : </span><span class="si">{</span><span class="n">future_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO banned_users (UID, ban_or_kick, duration) VALUES (</span><span class="si">{</span><span class="n">user_to_kick</span><span class="si">}</span><span class="s2">, &#39;KICK&#39;, &#39;</span><span class="si">{</span><span class="n">future_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;);&quot;</span>
+            <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+            <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="remove_kick_for_user">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.remove_kick_for_user">[docs]</a>
+<span class="k">def</span> <span class="nf">remove_kick_for_user</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">user_to_unkick</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de retirer le kick d&#39;un utilisateur lorsque la date de retour autorisée est atteinte.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param user_to_unkick: ID de l&#39;utilisateur que l&#39;on souhaite unkick.</span>
+<span class="sd">    :type user_to_unkick: int</span>
+
+<span class="sd">    :return: Un tableau avec en index 0 : True si la fonction s&#39;est bien executée, sinon False et l&#39;erreur en question en index 1.</span>
+<span class="sd">    :rtype: Array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;DELETE FROM banned_users WHERE UID = </span><span class="si">{</span><span class="n">user_to_unkick</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;UPDATE auth_user SET is_banned = 0 WHERE id = </span><span class="si">{</span><span class="n">user_to_unkick</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+        <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="check_kick_or_ban">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.check_kick_or_ban">[docs]</a>
+<span class="k">def</span> <span class="nf">check_kick_or_ban</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">UID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet de vérifier si un utilisateur à actuellement accès à l&#39;application ou bien si celui-ci est banni / kick.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param UID: ID de l&#39;utilisateur dont on souhaite connaitre le statut.</span>
+<span class="sd">    :type UID: int</span>
+
+<span class="sd">    :ivar kick_or_ban: statut actuel de l&#39;utilisateur (KICK, BAN ou Null)</span>
+<span class="sd">    :vartype kick_or_ban: str</span>
+
+<span class="sd">    :raises Exception: Si la fonction rencontre une erreur imprévue.</span>
+
+<span class="sd">    :return: Tableau contenant le statut de l&#39;utilisateur, détail ci-dessous.</span>
+<span class="sd">    :rtype: Array</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        - Si l&#39;utilisateur est banni, le &#39;return&#39; sera -&gt; [True, &#39;BAN&#39;]</span>
+<span class="sd">        - Si l&#39;utilisateur est exclu, le &#39;return&#39; sera -&gt; [True, &#39;KICK&#39;, Date à laquelle l&#39;utilisateur peut de nouveau rejoindre l&#39;application].</span>
+<span class="sd">        - Si l&#39;utilisateur n&#39;est ni exclu ni banni, le &#39;return&#39; sera -&gt; [False, &#39;Var kick_or_ban is Null.&#39;]</span>
+<span class="sd">        - Si une erreur à eu lieu, le &#39;return&#39; sera -&gt; [False, Message d&#39;erreur]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT ban_or_kick FROM banned_users WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">kick_or_ban</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">kick_or_ban</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">kick_or_ban</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;KICK&quot;</span><span class="p">:</span>
+                <span class="c1">#gathering the ok-date to give to the server</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT duration FROM banned_users WHERE UID = </span><span class="si">{</span><span class="n">UID</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">duration</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="n">kick_or_ban</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">duration</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="n">kick_or_ban</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Var kick_or_ban is Null.&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="set_friend_request">
+<a class="viewcode-back" href="../sql_Handler.html#sql_Handler.set_friend_request">[docs]</a>
+<span class="k">def</span> <span class="nf">set_friend_request</span><span class="p">(</span><span class="n">mydb</span><span class="p">,</span> <span class="n">demand_from</span><span class="p">,</span> <span class="n">demand_to</span><span class="p">,</span> <span class="n">user_type</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cette fonction permet d&#39;ajouter une demande d&#39;ami d&#39;un utilisateur à un autre.</span>
+
+<span class="sd">    :param mydb: Objet de connection Mysql</span>
+<span class="sd">    :type mydb: Object</span>
+
+<span class="sd">    :param demand_from: Utilisateur envoyant la demande d&#39;ami.</span>
+<span class="sd">    :type demand_from: int</span>
+
+<span class="sd">    :param demand_to: Utilisateur demandé en ami</span>
+<span class="sd">    :type demand_to: int</span>
+
+<span class="sd">    :param user_type: Type d&#39;utilisateur soumettant la demande (ADMIN / EMPLOYE)</span>
+<span class="sd">    :type user_type: str</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Si la demande d&#39;ami provient d&#39;un admin, celle ci sera de facto acceptée.</span>
+
+<span class="sd">    :ivar result: Variable permettant de vérifier si une demande est déjà en cour entre les deux utilisateurs.</span>
+<span class="sd">    :vartype result: Array</span>
+
+<span class="sd">    :return: Un tableau reprenant le statut d&#39;execution de la fonction, détail ci-dessous.</span>
+<span class="sd">    :rtype: Array</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Le retour de fonction peut contenir de multiples valeurs suivant la situation : </span>
+
+<span class="sd">        - Si l&#39;utilisateur est admin -&gt; On accepte la demande d&#39;ami immédiatement.</span>
+<span class="sd">        - Si l&#39;utilisateur n&#39;est pas admin -&gt; On ajoute la demande d&#39;ami.</span>
+<span class="sd">        - Si les utilisateurs sont déjà amis -&gt; Renvoie False + statut</span>
+<span class="sd">        - Si les utilisateurs ont déjà une demande d&#39;ami en cour -&gt; Renvoie False + statut</span>
+<span class="sd">        - Si la fonction lève une erreur -&gt; Renvoie False + Erreur</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mycursor</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting up friend request from </span><span class="si">{</span><span class="n">demand_from</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">demand_to</span><span class="si">}</span><span class="s2"> with type : </span><span class="si">{</span><span class="n">user_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1">#first we check if a request isn&#39;t already pending</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM user_friends WHERE UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2"> AND friend_UID = </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">mycursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result from query = </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span><span class="c1">#no friend request pending and they are not already friends</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Setting the request in the db.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">user_type</span> <span class="o">==</span> <span class="s2">&quot;FORCE&quot;</span><span class="p">:</span><span class="c1">#if user is admin</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User is admin, forcing the request&quot;</span><span class="p">)</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_friends (UID, friend_UID, status) VALUES (</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">, &#39;OK&#39;);&quot;</span><span class="c1">#On demander side</span>
+                <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_friends (UID, friend_UID, status) VALUES (</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">, &#39;OK&#39;);&quot;</span><span class="c1">#On demandee side</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User is not admin, submitting a request&quot;</span><span class="p">)</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_friends (UID, friend_UID, status) VALUES (</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">, &#39;WAITING&#39;);&quot;</span><span class="c1">#On demander side</span>
+                <span class="n">query2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;INSERT INTO user_friends (UID, friend_UID, status) VALUES (</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_to</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">demand_from</span><span class="p">)</span><span class="si">}</span><span class="s2">, &#39;PENDING&#39;);&quot;</span><span class="c1">#On demandee side</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">mycursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+                <span class="n">mydb</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;OK&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;USERS_ARE_ALREADY_FRIENDS&quot;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;PENDING&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;USER_WANTS_TO_BE_FRIEND_ALREADY&quot;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;WAITING&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;USER_ALREADY_SENT_REQUEST&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">E</span><span class="p">]</span>
+
+    <span class="k">pass</span></div>
+
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Owen PICHOT
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=fc40adec"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/translations.js?v=d99ca74e"></script>
+    </body>
+</html>

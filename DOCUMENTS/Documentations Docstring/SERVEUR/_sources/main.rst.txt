@@ -1,0 +1,21 @@
+.. _main:
+
+Main Module
+=============
+
+.. automodule:: main
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+    .. rubric:: Description
+
+    Ce fichier se charge de démarrer l'entièreté du script. Il effectur notamment les actions suivantes :
+
+    - Création d'un objet serveur via la classe 'Server_handle'.
+
+    - Démarrage d'un thread d'écoute pour recevoir les demandes de connexions de clients.
+
+    - Démarrage de la fonction permettant l'envoi de commandes sur le terminal serveur.
+
+    :raises KeyboardInterrupt: Si l'utilisateur du serveur stop le programme (Ctrl + C).

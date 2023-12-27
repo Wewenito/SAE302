@@ -1,0 +1,9 @@
+.. _sql_Handler:
+
+Sql_Handler Module
+====================
+
+.. automodule:: sql_Handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
