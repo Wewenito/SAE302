@@ -31,4 +31,8 @@ Ci-dessous la liste des rendus demandés pour la SAE et où les trouver au sein 
         - Documentation Serveur (pdf) -> SAE302/DOCUMENTS/Autres livrables/Documentation Serveur.pdf
 
 - CODE SOURCE :
-        
+
+        - Code source client (fichiers python) -> SAE302/CODE SOURCE/CLIENT
+
+        - Code source serveur (fichiers python) -> SAE302/CODE SOURCE/SERVER
+
