@@ -1,0 +1,18 @@
+
+QPushButton {
+    background-color: #df0138;
+    color: white;
+    border: 2px solid #8d0023;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+QPushButton:hover {
+    background-color: #e9023b;
+}
+
+
+QTextEdit#Messages_display {
+    color: #000000;
+}
+
