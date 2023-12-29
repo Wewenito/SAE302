@@ -20,15 +20,15 @@ Ci-dessous la liste des rendus demandés pour la SAE et où les trouver au sein 
 
 - DOCUMENTATIONS TECHNIQUES DU CODE :
   
-        - Documentation technique client (page web / sphinx) ->  SAE302/DOCUMENTS/Documentations Docstring/CLIENT/index.html  (à ouvrir dans un navigateur web)
+        - Documentation technique client (page web / sphinx) ->  SAE302/DOCUMENTS/Documentations Docstring/CLIENT/index.html  (Telecharger TOUT le dossier 'CLIENT' et ouvrir 'index.html' dans un navigateur web)
   
-        - Documentation technique serveur (page web / sphinx) -> SAE302/DOCUMENTS/Documentations Docstring/SERVEUR/index.html  (à ouvrir dans un navigateur web)
+        - Documentation technique serveur (page web / sphinx) -> SAE302/DOCUMENTS/Documentations Docstring/SERVEUR/index.html  (Telecharger TOUT le dossier 'SERVEUR' et ouvrir 'index.html' dans un navigateur web)
 
 - DOCUMENTATIONS :
   
-        - Documentation Client (pdf) ->
+        - Documentation Client (pdf) -> SAE302/DOCUMENTS/Autres livrables/Documentation Client.pdf
   
-        - Documentation Serveur (pdf) ->
+        - Documentation Serveur (pdf) -> SAE302/DOCUMENTS/Autres livrables/Documentation Serveur.pdf
 
 - CODE SOURCE :
         
